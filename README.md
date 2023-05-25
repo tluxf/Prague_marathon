@@ -1,1 +1,14 @@
 # Prague_marathon
+
+## Data Acquisition
+
+The Prague Marathon results were obtained from the Marathon website using the python script "Web_scrape_prague_marathon.py". The parameter file “prague_marathon_subevent.csv” was used to store settings for each year and could be modified to acquire data from other Run Czech events. For each year of the marathon, all the results were saved in a .csv file with the fields: bibno (bib number, as a unique identifier), country, gender, place (finish position) and genderrank (finish position in gender group).
+
+Weather data was obtained from open-meteo.com using the python script “Web_scrape_prague_weather.py” and the parameter file “prague_marathon_subevent.csv”. The weather was obtained for Prague city centre at 10am CET+1 the day of the marathon. The weather data for all years was saved into a single .csv file with the fields: year, temperature_2m, relativehumidity_2m, surface_pressure, precipitation, cloudcover, windspeed_10m and winddirection_10m.
+
+## Data Cleaning and Processing
+
+The marathon results .csv files were inspected and compared to the Prague Marathon results webpage for any errors. The scraped data was found to exactly correspond to the reported results on the webpage. xxx entries were found to not contain a finish time. It appears that these were for runners who started but did not complete the marathon, and all these results were manually deleted from the .csv files. It was found that the country labels were not consistent for every year. For example, in some years Germany was labelled as “DEU” while in others it was “GER”. The fix for this inconstancy will be described in the next paragraph.
+
+The marathon result .csv files for individual years were combined into a single .csv file using the python script “Prague_Marathon_Aggregate_Results”. To account for the inconsistent country labels (see previous paragraph), a find and replace function was used to make the results for different years consistent. Countries with <50 runners were not corrected, as they would not be considered during the analysis.
+
